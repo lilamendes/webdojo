@@ -91,8 +91,45 @@ describe('Formulário de Consultoria', () => {
          //area de texto************************************************************
         // site atoa para gerar pdf: https://loremipsum.io/
             cy.get('textarea[placeholder="Descreva mais detalhes sobre sua necessidade"]')
-                .type('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+                .type('Lorem ipsum dolor sit amet. Duis nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
     
+        //Caixa de texto que ao digitar valores, eles aparecem abaixo da caixa de texto como span (criou uma lista de spans)
+
+            const tecnologias = [ //constante do tupo array com a lista de canais
+                'Cypress',
+                'Selenium',
+                'WebDriverIO',
+                'Playwright',
+                'Robot Framework'
+            ]
+
+            tecnologias.forEach((tecnologia)=>{         
+        
+                cy.get('input[placeholder="Digite uma tecnologia e pressione Enter"]')
+                .type(tecnologia)
+                .type('{Enter}') //simula o botão Enter do teclado
+            
+                cy.contains('label','Tecnologias')
+                    .parent()
+                    .contains('span', tecnologia)
+                    .should('be.visible')
+            })    
+
+        //Checkbox pelo elemento filho >> procurei uma label que dentro dos filhos dela algum filho tivesse 'termos de uso' e tinha o 'a'
+                                                                //então achou essa label no código, aí dentro da estrutura da label achou um input
+            cy.contains('label', 'termos de uso')
+                .find('input')
+                .check()
+                .should('be.checked')
+
+        //submit de formulário
+            cy.contains('button','Enviar formulário')
+                .click()
+
+            cy.contains('Sua solicitação de consultoria foi enviada com sucesso! Em breve, nossa equipe entrará em contato através do email fornecido.')
+                .should('be.visible')
+            cy.contains('button','Fechar')
+                .click()
     })
 })
 
@@ -112,3 +149,4 @@ describe('Formulário de Consultoria', () => {
 
 //        cy.get('#name').type('Lila Mendes') pegar por ID
 //
+
