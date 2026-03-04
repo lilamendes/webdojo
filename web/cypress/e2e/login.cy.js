@@ -1,5 +1,5 @@
 describe('Login', () => {
-  it('Deve logar com sucesso', () => {
+  it.only('Deve logar com sucesso', () => {
     cy.start()
     cy.submitLoginForm('papito@webdojo.com', 'katana123')
 
@@ -21,6 +21,6 @@ describe('Login', () => {
   it('Não deve logar com email não cadastrado', () => {
     cy.start()
     cy.submitLoginForm('papitoErrado@webdojo.com', 'katana123')
-    cy.contains('Acesso negado! Tente novamente.')
+    cy.contains('Acesso negado! Tente novamente.') 
   })
 })

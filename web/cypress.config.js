@@ -5,5 +5,7 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
+    experimentalStudio: true
+    //estratégia ruim  defaultCommandTimeout: 10000 //inseri isso nesse arquivo para que tenha mais segundos para buscar os elementos
   },
 });
